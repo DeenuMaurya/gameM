@@ -6,7 +6,7 @@ public class Move: MonoBehaviour
 {
     private int target = 0;
     private int oldTarget = 0;
-    private List<Vector3> waypoints = new List<Vector3>();
+    public List<Vector3> waypoints = new List<Vector3>();
     private int slide = 0;
     private bool died = false;
      public float speed = 3f;
@@ -24,27 +24,42 @@ public class Move: MonoBehaviour
          }
      }
 
-     private void normalMove(){
+     private void normalMove()
+    {
          float move = speed * Time.deltaTime;
-         if(Vector3.Distance(transform.position,waypoints[oldTarget])> 0){
-            transform.position = Vector3.MoveTowards(transform.position, waypoints[oldTarget], move);
-         }else if(target > oldTarget){
-             oldTarget++;
+         if(Vector3.Distance(transform.position,waypoints[oldTarget])> 0)
+        {
+
+             transform.position = Vector3.MoveTowards(transform.position, waypoints[oldTarget], move);
+            GameControl.instance.UpdateUserProfile();
+
+        }
+        else if(target > oldTarget)
+        {
+
+
+            oldTarget++;
+
          }
+
+
      }
 
-     private void slideMove(){
-         float move = speed * Time.deltaTime;
-         normalMove();
-         if(Vector3.Distance(transform.position,waypoints[target]) == 0){
-             target = slide;
-             oldTarget = target;
-             slide = 0;
-         }
-     }
+     private void slideMove()
+    {
+        float move = speed * Time.deltaTime;
+        normalMove();
+        if (Vector3.Distance(transform.position, waypoints[target]) == 0)
+        {
+            target = slide;
+            oldTarget = target;
+            slide = 0;
+        }
+    }
 
-     private void dieMove(){
-         float move = 10f * Time.deltaTime;
+     private void dieMove()
+    {
+         float move = 800f * Time.deltaTime;
          if(Vector3.Distance(transform.position,waypoints[oldTarget])> 0){
             transform.position = Vector3.MoveTowards(transform.position, waypoints[oldTarget], move);
          }else if(target < oldTarget){

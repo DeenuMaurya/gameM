@@ -17,7 +17,7 @@ public class Path
     public Path(GameObject newPlayer){
       player = newPlayer;
       GameObject ways = GameObject.Find("BoardWaypoints");
-      for (int i = 0; i < 63; i++)
+      for (int i = 0; i < 86; i++)
       {
           waypoints.Add(ways.transform.GetChild(i).transform.position);
       }
@@ -26,8 +26,18 @@ public class Path
       initializeSlides();
     }
 
-    private void initializeSlides(){
-   
+    private void initializeSlides()
+    {
+        slides.Add(4, 13);
+        slides.Add(18, 7);
+        slides.Add(25, 12);
+        slides.Add(32, 52);
+        slides.Add(41, 62);
+        slides.Add(47, 28);
+        slides.Add(60, 83);
+        slides.Add(71, 49);
+
+
     }
 
     public void setPosition(int newPosition){
