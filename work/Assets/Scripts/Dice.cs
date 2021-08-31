@@ -9,9 +9,10 @@ public class Dice : MonoBehaviour
     private SpriteRenderer rend;
     public int whosTurn = 0;
     public bool coroutineAllowed = true;
+    public int playerCount;
 
-	// Use this for initialization
-	private void Start () {
+    // Use this for initialization
+    private void Start () {
         rend = GetComponent<SpriteRenderer>();
         diceSides = Resources.LoadAll<Sprite>("DiceSides/");
         rend.sprite = diceSides[5];
@@ -43,28 +44,68 @@ public class Dice : MonoBehaviour
 
         //}
         //else
-        if (whosTurn == 0)
-        {
-            whosTurn += 1;
-            //Debug.Log("TrunValueaaa"+ whosTurn);
-        }
-        else if (whosTurn == 1)
-        {
-            whosTurn += 1;
-           // Debug.Log("TrunValuebbb" + whosTurn);
 
-        }
-        else if (whosTurn == 2)
-        {
-            whosTurn += 1;
-            //Debug.Log("TrunValueccc" + whosTurn);
+        playerCount = PlayerPrefs.GetInt("PlayerCount");
 
-        }
-        else if (whosTurn == 3)
+        if (playerCount == 2)
         {
-            whosTurn -= 3;
-           // Debug.Log("TrunValueddddd" + whosTurn);
+            if (whosTurn == 0)
+            {
+                whosTurn += 1;
+                //Debug.Log("TrunValueaaa"+ whosTurn);
+            }
+            else if (whosTurn == 1)
+            {
+                whosTurn -= 1;
+                // Debug.Log("TrunValuebbb" + whosTurn);
 
+            }
+        }
+        else if (playerCount == 3)
+        {
+            if (whosTurn == 0)
+            {
+                whosTurn += 1;
+                Debug.Log("TrunValueaaa"+ whosTurn);
+            }
+            else if (whosTurn == 1)
+            {
+                whosTurn += 1;
+                Debug.Log("TrunValuebbb" + whosTurn);
+
+            }
+            else if (whosTurn == 2)
+            {
+                whosTurn -= 2;
+                Debug.Log("TrunValueccc" + whosTurn);
+
+            }
+        }
+        else if (playerCount == 4)
+        {
+            if (whosTurn == 0)
+            {
+                whosTurn += 1;
+                //Debug.Log("TrunValueaaa"+ whosTurn);
+            }
+            else if (whosTurn == 1)
+            {
+                whosTurn += 1;
+                // Debug.Log("TrunValuebbb" + whosTurn);
+
+            }
+            else if (whosTurn == 2)
+            {
+                whosTurn += 1;
+                //Debug.Log("TrunValueccc" + whosTurn);
+
+            }
+            else if (whosTurn == 3)
+            {
+                whosTurn -= 3;
+                // Debug.Log("TrunValueddddd" + whosTurn);
+
+            }
         }
         GameControl.wasAKill = false;
      // coroutineAllowed = true;

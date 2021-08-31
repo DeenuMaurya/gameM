@@ -25,24 +25,71 @@ public class GameControl : MonoBehaviour
 
     public static GameControl instance;
 
+    public Transform topicParent;
+    public GameObject topicPrefeb;
+   public int playerCount;
+
+
+    public List<GameObject> playersP = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         whoWinsTextShadow = GameObject.Find("WhoWinsText");
+        playerCount= PlayerPrefs.GetInt("PlayerCount");
 
-        Player player = new Player(GameObject.Find("Player1"));
-        Player player2 = new Player(GameObject.Find("Player2"));
-        Player player3 = new Player(GameObject.Find("Player3"));
-        Player player4 = new Player(GameObject.Find("Player4"));
+        if (playerCount == 2)
+        {
+            playersP[2].SetActive(false);
+            playersP[3].SetActive(false);
 
-        players.Add(player);
-        players.Add(player2);
-        players.Add(player3);
-        players.Add(player4);
-
-        
+            Player player = new Player(GameObject.Find("Player1"));
+             Player player2 = new Player(GameObject.Find("Player2")); 
  
+            players.Add(player);
+             players.Add(player2);
+
+            playerTwo.gameObject.SetActive(true);
+
+            playerOne.gameObject.SetActive(true);
+            playerThree.gameObject.SetActive(false);
+            playerFour.gameObject.SetActive(false);
+        }
+        else if(playerCount == 3)
+        {
+             playersP[3].SetActive(false);
+            Player player = new Player(GameObject.Find("Player1"));
+            Player player2 = new Player(GameObject.Find("Player2"));
+            Player player3 = new Player(GameObject.Find("Player3"));
+            players.Add(player);
+             players.Add(player2);
+             players.Add(player3);
+
+            playerTwo.gameObject.SetActive(true);
+
+            playerOne.gameObject.SetActive(true);
+            playerThree.gameObject.SetActive(true);
+            playerFour.gameObject.SetActive(false);
+        }
+        else if (playerCount == 4)
+        {
+            Player player = new Player(GameObject.Find("Player1"));
+            Player player2 = new Player(GameObject.Find("Player2"));
+             Player player3 = new Player(GameObject.Find("Player3"));
+             Player player4 = new Player(GameObject.Find("Player4"));
+            players.Add(player);
+             players.Add(player2);
+             players.Add(player3);
+             players.Add(player4);
+
+            playerTwo.gameObject.SetActive(true);
+
+            playerOne.gameObject.SetActive(true);
+            playerThree.gameObject.SetActive(true);
+            playerFour.gameObject.SetActive(true);
+        }
+
 
         whoWinsTextShadow.gameObject.SetActive(false);
 
@@ -57,7 +104,6 @@ public class GameControl : MonoBehaviour
         if (turn == 0)
         {
             playerTwo.GetChild(0).gameObject.SetActive(true);
-
             playerOne.GetChild(0).gameObject.SetActive(false);
             playerThree.GetChild(0).gameObject.SetActive(false);
             playerFour.GetChild(0).gameObject.SetActive(false);
@@ -65,29 +111,23 @@ public class GameControl : MonoBehaviour
         else if (turn == 1)
         {
             playerThree.GetChild(0).gameObject.SetActive(true);
-
             playerOne.GetChild(0).gameObject.SetActive(false);
             playerTwo.GetChild(0).gameObject.SetActive(false);
             playerFour.GetChild(0).gameObject.SetActive(false);
-
         }
         else if (turn == 2)
         {
             playerFour.GetChild(0).gameObject.SetActive(true);
-
             playerOne.GetChild(0).gameObject.SetActive(false);
             playerThree.GetChild(0).gameObject.SetActive(false);
             playerTwo.GetChild(0).gameObject.SetActive(false);
-
         }
         else if (turn == 3)
         {
-            
             playerOne.GetChild(0).gameObject.SetActive(true);
             playerThree.GetChild(0).gameObject.SetActive(false);
             playerTwo.GetChild(0).gameObject.SetActive(false);
             playerFour.GetChild(0).gameObject.SetActive(false);
-
         }
 
     }
@@ -113,7 +153,7 @@ public class GameControl : MonoBehaviour
     }
 
     private void checkWinner(){
-        for(int i = 0; i<4; i++){
+        for(int i = 0; i< playerCount; i++){
             if(players[i].isWinner()){
                 gameOver = true;
                 whoWinsTextShadow.GetComponent<Text>().text = "Player"+(i+1)+" Wins!";

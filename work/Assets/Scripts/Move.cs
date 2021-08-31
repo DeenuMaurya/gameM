@@ -31,7 +31,7 @@ public class Move: MonoBehaviour
         {
 
              transform.position = Vector3.MoveTowards(transform.position, waypoints[oldTarget], move);
-            GameControl.instance.UpdateUserProfile();
+           GameControl.instance.UpdateUserProfile();
 
         }
         else if(target > oldTarget)
